@@ -21,8 +21,11 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    public ResponseEntity<List<TaskDTO>> getTask() {
-        return ResponseEntity.ok(taskService.getTasks());
+    public ResponseEntity<List<TaskDTO>> getTask(
+            @RequestParam(required = false) String state,
+            @RequestParam(required = false) String title
+    ) {
+        return ResponseEntity.ok(taskService.getTasks(state, title));
     }
 
     @PostMapping
