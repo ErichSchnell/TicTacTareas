@@ -1,30 +1,37 @@
 package com.practicas.TicTacTareas.service;
 
 import com.practicas.TicTacTareas.entity.Task;
+import com.practicas.TicTacTareas.repository.TaskRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Lazy
 @Service
 public class TaskServiceImpl implements TaskService{
 
-    private final List<Task> tasks = new ArrayList<>(List.of(
-            new Task(1, "Compras", "Comprar papas", "PENDIENTE", 123456L)
-    ));
+    @Autowired
+    private TaskRepository taskRepository;
 
     @Override
     public List<Task> getTasks() {
-        return tasks;
+        return taskRepository.findAll();
     }
+
+    @Override
+    public void setTask(Task task) {
+        taskRepository.save(task);
+    }
+}
+
+
 
 //    @Override
 //    public void setTask(Task task) {
 //        tasks.add(task);
 //    }
-}
 
 
 /*

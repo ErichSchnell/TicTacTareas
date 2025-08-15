@@ -1,45 +1,44 @@
 package com.practicas.TicTacTareas.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Entity;import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
+import java.time.Instant;
+
+@Entity
+@Table(name = "task")
 public class Task {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 255)
     private String title;
+
+    @Column(length = 255)
     private String description;
+
+    @Column(length = 255)
     private String state;
+
+    // Guardamos el timestamp en milisegundos
+    @Column(nullable = true)
     private Long timeout;
 
-    public Task() {
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonIgnore
+    private Usuario usuario;
 
-    public Task(int id, String title, String description, String state, Long timeout) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.state = state;
-        this.timeout = timeout;
-    }
-
-    public int getId() {
+    // Getters y setters
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getTimeout() {
-        return timeout;
-    }
-
-    public void setTimeout(Long timeout) {
-        this.timeout = timeout;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getTitle() {
@@ -50,11 +49,40 @@ public class Task {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getState() {
         return state;
     }
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public Long getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Long timeout) {
+        this.timeout = timeout;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    // Método opcional para obtener la fecha como Instant
+    public Instant getTimeoutAsInstant() {
+        return timeout != null ? Instant.ofEpochMilli(timeout) : null;
     }
 }

@@ -16,7 +16,6 @@ import java.util.List;
 public class TaskController {
 
     @Autowired
-    @Lazy
     private TaskService taskService;
 
     @GetMapping
@@ -26,7 +25,7 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<Task> postTask(@RequestBody Task task) {
-//        taskService.setTask(task);
+        taskService.setTask(task);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -36,6 +35,9 @@ public class TaskController {
 
         return ResponseEntity.created(location).body(task);
     }
+}
+
+
 //
 //    @PutMapping("/{id}")
 //    public ResponseEntity<?> putTask(@PathVariable Integer id, @RequestBody Task task) {
@@ -48,6 +50,3 @@ public class TaskController {
 //        taskService.deleteTask(id);
 //        return ResponseEntity.noContent().build();
 //    }
-
-
-}
