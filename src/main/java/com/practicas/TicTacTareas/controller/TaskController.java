@@ -2,9 +2,11 @@ package com.practicas.TicTacTareas.controller;
 
 import com.practicas.TicTacTareas.DTOs.task.TaskCreateDTO;
 import com.practicas.TicTacTareas.DTOs.task.TaskDTO;
+import com.practicas.TicTacTareas.DTOs.task.TaskPutDTO;
 import com.practicas.TicTacTareas.entity.Task;
 import com.practicas.TicTacTareas.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -35,6 +37,17 @@ public class TaskController {
                 .toUri();
 
         return ResponseEntity.created(location).body(taskResponse);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> putTask(@PathVariable Long id, @RequestBody TaskPutDTO taskPutDto) {
+        try {
+            TaskDTO updatedTask = taskService.taskPut(id, taskPutDto);
+            return ResponseEntity.ok(updatedTask);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null); // o podés crear un DTO de error
+        }
     }
 }
 

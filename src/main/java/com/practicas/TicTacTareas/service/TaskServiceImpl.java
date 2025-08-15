@@ -2,6 +2,7 @@ package com.practicas.TicTacTareas.service;
 
 import com.practicas.TicTacTareas.DTOs.task.TaskCreateDTO;
 import com.practicas.TicTacTareas.DTOs.task.TaskDTO;
+import com.practicas.TicTacTareas.DTOs.task.TaskPutDTO;
 import com.practicas.TicTacTareas.entity.Task;
 import com.practicas.TicTacTareas.entity.Usuario;
 import com.practicas.TicTacTareas.repository.TaskRepository;
@@ -40,15 +41,22 @@ public class TaskServiceImpl implements TaskService{
         Task taskResponse = taskRepository.save(task);
         return new TaskDTO(taskResponse);
     }
+
+    @Override
+    public TaskDTO taskPut(Long id, TaskPutDTO dto) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task no encontrada"));
+
+        // Actualizamos solo los campos que vienen en el DTO
+        if(dto.getTitle() != null) task.setTitle(dto.getTitle());
+        if(dto.getDescription() != null) task.setDescription(dto.getDescription());
+        if(dto.getState() != null) task.setState(dto.getState());
+        if(dto.getTimeout() != null) task.setTimeout(dto.getTimeout());
+
+        Task updatedTask = taskRepository.save(task);
+        return new TaskDTO(updatedTask);
+    }
 }
-
-
-
-//    @Override
-//    public void setTask(Task task) {
-//        tasks.add(task);
-//    }
-
 
 /*
 private final TaskRepositoryImp taskRepo = new TaskRepositoryImp();
