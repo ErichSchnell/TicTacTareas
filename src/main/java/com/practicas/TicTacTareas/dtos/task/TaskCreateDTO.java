@@ -1,23 +1,11 @@
-package com.practicas.TicTacTareas.DTOs.task;
+package com.practicas.TicTacTareas.dtos.task;
 
-import com.practicas.TicTacTareas.entity.Task;
-
-public class TaskDTO {
-    private Long id;
+public class TaskCreateDTO {
     private String title;
     private String description;
     private String state;
     private Long timeout;
-    private Integer usuarioId;
-
-    public TaskDTO(Task task) {
-        this.id = task.getId();
-        this.title = task.getTitle();
-        this.description = task.getDescription();
-        this.state = task.getState();
-        this.timeout = task.getTimeout();
-        this.usuarioId = task.getUsuario().getId(); // solo el ID, no todo el usuario
-    }
+    private Long usuarioId; // solo el id del usuario
 
     public String getDescription() {
         return description;
@@ -25,14 +13,6 @@ public class TaskDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getState() {
@@ -59,11 +39,11 @@ public class TaskDTO {
         this.title = title;
     }
 
-    public Integer getUsuarioId() {
+    public Long getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(Integer usuarioId) {
+    public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
     }
 }

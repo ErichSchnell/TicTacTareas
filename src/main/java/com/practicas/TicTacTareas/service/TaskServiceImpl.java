@@ -1,8 +1,8 @@
 package com.practicas.TicTacTareas.service;
 
-import com.practicas.TicTacTareas.DTOs.task.TaskCreateDTO;
-import com.practicas.TicTacTareas.DTOs.task.TaskDTO;
-import com.practicas.TicTacTareas.DTOs.task.TaskPutDTO;
+import com.practicas.TicTacTareas.dtos.task.TaskCreateDTO;
+import com.practicas.TicTacTareas.dtos.task.TaskDTO;
+import com.practicas.TicTacTareas.dtos.task.TaskPutDTO;
 import com.practicas.TicTacTareas.entity.Task;
 import com.practicas.TicTacTareas.entity.Usuario;
 import com.practicas.TicTacTareas.repository.TaskRepository;
@@ -56,32 +56,9 @@ public class TaskServiceImpl implements TaskService{
         Task updatedTask = taskRepository.save(task);
         return new TaskDTO(updatedTask);
     }
+
+    @Override
+    public void deleteTask(Long id) {
+        taskRepository.deleteById(id);
+    }
 }
-
-/*
-private final TaskRepositoryImp taskRepo = new TaskRepositoryImp();
-
-    public List<Task> getTasks() {
-        return taskRepo.getTasks();
-    }
-
-    public void setTask(Task task) {
-        taskRepo.setTask(task);
-    }
-
-    public void editTask(Integer id, Task task) {
-        for (Task t : taskRepo.getTasks()){
-            if (t.getId().equals(id)){
-                taskRepo.editTask(id, task);
-            }
-        }
-    }
-
-    public void deleteTask(Integer id) {
-        for (Task t : taskRepo.getTasks()){
-            if (t.getId().equals(id)){
-                taskRepo.deleteTask(id);
-            }
-        }
-    }
- */

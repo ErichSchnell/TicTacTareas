@@ -1,9 +1,8 @@
 package com.practicas.TicTacTareas.controller;
 
-import com.practicas.TicTacTareas.DTOs.task.TaskCreateDTO;
-import com.practicas.TicTacTareas.DTOs.task.TaskDTO;
-import com.practicas.TicTacTareas.DTOs.task.TaskPutDTO;
-import com.practicas.TicTacTareas.entity.Task;
+import com.practicas.TicTacTareas.dtos.task.TaskCreateDTO;
+import com.practicas.TicTacTareas.dtos.task.TaskDTO;
+import com.practicas.TicTacTareas.dtos.task.TaskPutDTO;
 import com.practicas.TicTacTareas.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,18 +48,14 @@ public class TaskController {
                     .body(null); // o podés crear un DTO de error
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        try {
+            taskService.deleteTask(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
-
-
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<?> putTask(@PathVariable Integer id, @RequestBody Task task) {
-//        taskService.editTask(id,task);
-//        return ResponseEntity.ok(task);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<?> deleteTask(@PathVariable Integer id) {
-//        taskService.deleteTask(id);
-//        return ResponseEntity.noContent().build();
-//    }

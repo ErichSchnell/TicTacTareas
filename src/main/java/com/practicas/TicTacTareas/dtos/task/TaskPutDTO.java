@@ -1,4 +1,4 @@
-package com.practicas.TicTacTareas.DTOs.task;
+package com.practicas.TicTacTareas.dtos.task;
 
 public class TaskPutDTO {
     private String title;
