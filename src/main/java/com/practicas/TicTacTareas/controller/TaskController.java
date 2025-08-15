@@ -3,7 +3,7 @@ package com.practicas.TicTacTareas.controller;
 import com.practicas.TicTacTareas.dtos.task.TaskCreateDTO;
 import com.practicas.TicTacTareas.dtos.task.TaskDTO;
 import com.practicas.TicTacTareas.dtos.task.TaskPutDTO;
-import com.practicas.TicTacTareas.service.TaskService;
+import com.practicas.TicTacTareas.service.task.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

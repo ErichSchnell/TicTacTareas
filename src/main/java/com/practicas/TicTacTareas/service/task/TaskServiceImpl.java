@@ -1,4 +1,4 @@
-package com.practicas.TicTacTareas.service;
+package com.practicas.TicTacTareas.service.task;
 
 import com.practicas.TicTacTareas.dtos.task.TaskCreateDTO;
 import com.practicas.TicTacTareas.dtos.task.TaskDTO;
