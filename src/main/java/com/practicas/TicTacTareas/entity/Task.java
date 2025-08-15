@@ -29,7 +29,6 @@ public class Task {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
-    @JsonIgnore
     private Usuario usuario;
 
     // Getters y setters

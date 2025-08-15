@@ -1,9 +1,10 @@
 package com.practicas.TicTacTareas.controller;
 
+import com.practicas.TicTacTareas.DTOs.task.TaskCreateDTO;
+import com.practicas.TicTacTareas.DTOs.task.TaskDTO;
 import com.practicas.TicTacTareas.entity.Task;
 import com.practicas.TicTacTareas.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,21 +20,21 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    public ResponseEntity<List<Task>> getTask() {
+    public ResponseEntity<List<TaskDTO>> getTask() {
         return ResponseEntity.ok(taskService.getTasks());
     }
 
     @PostMapping
-    public ResponseEntity<Task> postTask(@RequestBody Task task) {
-        taskService.setTask(task);
+    public ResponseEntity<TaskDTO> postTask(@RequestBody TaskCreateDTO taskCreateDTO) {
+        TaskDTO taskResponse = taskService.setTask(taskCreateDTO);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{title}")
-                .buildAndExpand(task.getTitle())
+                .path("/{id}")
+                .buildAndExpand(taskResponse.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(task);
+        return ResponseEntity.created(location).body(taskResponse);
     }
 }
 
