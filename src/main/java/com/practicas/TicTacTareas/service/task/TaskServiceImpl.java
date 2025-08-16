@@ -22,18 +22,18 @@ public class TaskServiceImpl implements TaskService{
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public List<TaskDTO> getTasks(String state, String title) {
+    public List<TaskDTO> getTasks(String email, String state, String title) {
         if (state != null && title != null) {
-            return taskRepository.findByStateAndTitleContainingIgnoreCase(state, title).stream().map(TaskDTO::new).toList();
+            return taskRepository.findByUsuarioEmailAndStateAndTitleContainingIgnoreCase(email, state, title).stream().map(TaskDTO::new).toList();
         } else if (state != null) {
-            return taskRepository.findByState(state).stream().map(TaskDTO::new).toList();
+            return taskRepository.findByUsuarioEmailAndState(email, state).stream().map(TaskDTO::new).toList();
         } else if (title != null) {
-            return taskRepository.findByTitleContainingIgnoreCase(title).stream().map(TaskDTO::new).toList();
+            return taskRepository.findByUsuarioEmailAndTitleContainingIgnoreCase(email, title).stream().map(TaskDTO::new).toList();
         } else {
-            return taskRepository.findAll().stream().map(TaskDTO::new).toList();
+            return taskRepository.findByUsuarioEmail(email).stream().map(TaskDTO::new).toList();
         }
     }
-
+//mysql://root:EHzxdZCFeZtMbktmPADZpMAREYwKepdZ@yamabiko.proxy.rlwy.net:21389/railway
     @Override
     public TaskDTO setTask(TaskCreateDTO dto) {
         Task task = new Task();

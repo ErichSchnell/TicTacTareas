@@ -7,6 +7,7 @@ import com.practicas.TicTacTareas.service.task.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,9 +24,12 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<List<TaskDTO>> getTask(
             @RequestParam(required = false) String state,
-            @RequestParam(required = false) String title
+            @RequestParam(required = false) String title,
+            Authentication authentication
     ) {
-        return ResponseEntity.ok(taskService.getTasks(state, title));
+        String email = authentication.getName();
+
+        return ResponseEntity.ok(taskService.getTasks(email, state, title));
     }
 
     @PostMapping
