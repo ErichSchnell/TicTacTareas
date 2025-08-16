@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
     // Buscar por state y title
-    List<Task> findByStateAndTitle(String state, String title);
+    List<Task> findByStateAndTitleContainingIgnoreCase(String state, String title);
 
     // Buscar solo por state
     List<Task> findByState(String state);
 
     // Buscar solo por title
-    List<Task> findByTitle(String title);
+    List<Task> findByTitleContainingIgnoreCase(String title);
 }

@@ -24,11 +24,11 @@ public class TaskServiceImpl implements TaskService{
     @Override
     public List<TaskDTO> getTasks(String state, String title) {
         if (state != null && title != null) {
-            return taskRepository.findByStateAndTitle(state, title).stream().map(TaskDTO::new).toList();
+            return taskRepository.findByStateAndTitleContainingIgnoreCase(state, title).stream().map(TaskDTO::new).toList();
         } else if (state != null) {
             return taskRepository.findByState(state).stream().map(TaskDTO::new).toList();
         } else if (title != null) {
-            return taskRepository.findByTitle(title).stream().map(TaskDTO::new).toList();
+            return taskRepository.findByTitleContainingIgnoreCase(title).stream().map(TaskDTO::new).toList();
         } else {
             return taskRepository.findAll().stream().map(TaskDTO::new).toList();
         }
