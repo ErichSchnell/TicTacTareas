@@ -8,7 +8,6 @@ public class TaskDTO {
     private String description;
     private String state;
     private Long timeout;
-    private Integer usuarioId;
 
     public TaskDTO(Task task) {
         this.id = task.getId();
@@ -16,7 +15,6 @@ public class TaskDTO {
         this.description = task.getDescription();
         this.state = task.getState();
         this.timeout = task.getTimeout();
-        this.usuarioId = task.getUsuario().getId(); // solo el ID, no todo el usuario
     }
 
     public String getDescription() {
@@ -57,13 +55,5 @@ public class TaskDTO {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Integer getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Integer usuarioId) {
-        this.usuarioId = usuarioId;
     }
 }

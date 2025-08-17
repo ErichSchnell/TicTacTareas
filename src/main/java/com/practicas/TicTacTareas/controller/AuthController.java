@@ -6,7 +6,6 @@ import com.practicas.TicTacTareas.dtos.auth.AuthResponseDTO;
 import com.practicas.TicTacTareas.dtos.auth.RegisterRequestDTO;
 import com.practicas.TicTacTareas.entity.Usuario;
 import com.practicas.TicTacTareas.service.auth.CustomUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

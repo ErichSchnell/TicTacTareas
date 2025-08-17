@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService{
@@ -33,16 +34,17 @@ public class TaskServiceImpl implements TaskService{
             return taskRepository.findByUsuarioEmail(email).stream().map(TaskDTO::new).toList();
         }
     }
-//mysql://root:EHzxdZCFeZtMbktmPADZpMAREYwKepdZ@yamabiko.proxy.rlwy.net:21389/railway
+
     @Override
-    public TaskDTO setTask(TaskCreateDTO dto) {
+    public TaskDTO setTask(String email, TaskCreateDTO dto) {
+        Optional<Usuario> user = usuarioRepository.findByEmail(email);
         Task task = new Task();
         task.setTitle(dto.getTitle());
         task.setDescription(dto.getDescription());
         task.setState(dto.getState());
         task.setTimeout(dto.getTimeout());
 
-        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
+        Usuario usuario = usuarioRepository.findById(user.get().getId())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         task.setUsuario(usuario);
 

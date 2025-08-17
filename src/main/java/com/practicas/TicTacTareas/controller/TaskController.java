@@ -33,8 +33,12 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskDTO> postTask(@RequestBody TaskCreateDTO taskCreateDTO) {
-        TaskDTO taskResponse = taskService.setTask(taskCreateDTO);
+    public ResponseEntity<TaskDTO> postTask(
+            @RequestBody TaskCreateDTO taskCreateDTO,
+            Authentication authentication
+    ) {
+        String email = authentication.getName();
+        TaskDTO taskResponse = taskService.setTask(email, taskCreateDTO);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
