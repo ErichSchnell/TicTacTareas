@@ -1,7 +1,15 @@
 package com.practicas.TicTacTareas.dtos.auth;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class RegisterRequestDTO {
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
     private String password;
 
     // getters y setters

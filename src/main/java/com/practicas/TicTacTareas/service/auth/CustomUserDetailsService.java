@@ -1,11 +1,20 @@
 package com.practicas.TicTacTareas.service.auth;
 
+import com.practicas.TicTacTareas.config.JwtUtil;
+import com.practicas.TicTacTareas.dtos.auth.AuthRequestDTO;
+import com.practicas.TicTacTareas.dtos.auth.RegisterRequestDTO;
 import com.practicas.TicTacTareas.entity.Usuario;
+import com.practicas.TicTacTareas.exception.EmailIsExistente;
 import com.practicas.TicTacTareas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

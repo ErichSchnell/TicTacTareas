@@ -6,12 +6,15 @@ import com.practicas.TicTacTareas.dtos.auth.AuthResponseDTO;
 import com.practicas.TicTacTareas.dtos.auth.RegisterRequestDTO;
 import com.practicas.TicTacTareas.entity.Usuario;
 import com.practicas.TicTacTareas.service.auth.CustomUserDetailsService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@Validated
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -39,7 +43,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequestDTO authRequestDTO) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@Valid @RequestBody AuthRequestDTO authRequestDTO) throws Exception {
         System.out.println("Login attempt: " + authRequestDTO.getEmail() + " / " + authRequestDTO.getPassword());
         try {
             authenticationManager.authenticate(
@@ -56,7 +60,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody RegisterRequestDTO request) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequestDTO request) throws Exception {
 
         // Verificar si el usuario ya existe
         if (userDetailsService.userExists(request.getEmail())) {
