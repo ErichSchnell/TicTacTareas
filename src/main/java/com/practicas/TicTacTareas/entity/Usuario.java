@@ -18,9 +18,6 @@ public class Usuario {
     @Column(nullable = false, length = 255)
     private String password;
 
-    @Column(length = 255)
-    private String token;
-
     public String getEmail() {
         return email;
     }
@@ -43,13 +40,5 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

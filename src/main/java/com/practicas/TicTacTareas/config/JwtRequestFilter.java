@@ -31,13 +31,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
 
-        // Rutas que no necesitan token
-        String path = request.getRequestURI();
-        if (path.startsWith("/auth/")) {
-            chain.doFilter(request, response);
-            return;
-        }
-
         final String authorizationHeader = request.getHeader("Authorization");
 
         String username = null;
