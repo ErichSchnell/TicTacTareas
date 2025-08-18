@@ -5,6 +5,7 @@ import com.practicas.TicTacTareas.dtos.auth.AuthRequestDTO;
 import com.practicas.TicTacTareas.dtos.auth.AuthResponseDTO;
 import com.practicas.TicTacTareas.dtos.auth.RegisterRequestDTO;
 import com.practicas.TicTacTareas.entity.Usuario;
+import com.practicas.TicTacTareas.exception.EmailIsExistente;
 import com.practicas.TicTacTareas.service.auth.CustomUserDetailsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,8 @@ public class AuthController {
 
         // Verificar si el usuario ya existe
         if (userDetailsService.userExists(request.getEmail())) {
-            return ResponseEntity.badRequest().body("El usuario ya existe");
+            throw new EmailIsExistente("El usuario ya existe");
+//            return ResponseEntity.badRequest().body("El usuario ya existe");
         }
 
         // Crear usuario con contraseña encriptada
